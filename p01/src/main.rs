@@ -37,6 +37,8 @@ fn part2(nums: &Vec<BigInt>) -> Option<BigInt> {
     let mut v = nums.clone();
     v.sort_unstable();
 
+    // The `num` create claims that `to_bigint` will always succeed when
+    // converting from any integer or unsigned primitive.
     let target = 2020.to_bigint().unwrap();
 
     let len = v.len();
