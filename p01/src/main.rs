@@ -1,25 +1,31 @@
 use std::collections::HashSet;
-use std::error::Error;
-use std::io::{self, Read, Write};
+use std::io::{self, Read};
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<(), io::Error> {
     let mut input = String::new();
     io::stdin().read_to_string(&mut input)?;
 
-    part1(&input)?;
+    let nums = parse(&input);
+
+    println!("part 1: {:?}", part1(&nums));
 
     Ok(())
 }
 
-fn part1(input: &str) -> Result<(), Box<dyn Error>> {
+fn parse(input: &str) -> Vec<i32> {
+    return input
+        .split_whitespace()
+        .filter_map(|x| x.parse().ok())
+        .collect();
+}
+
+fn part1(nums: &Vec<i32>) -> Option<i32> {
     let mut seen = HashSet::new();
-    for line in input.lines() {
-        let n: i32 = line.parse()?;
+    for n in nums {
         if seen.contains(&(2020 - n)) {
-            writeln!(io::stdout(), "{}", n * (2020 - n))?;
-            return Ok(());
+            return Some(n * (2020 - n));
         }
         seen.insert(n);
     }
-    Ok(())
+    None
 }
