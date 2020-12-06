@@ -1,0 +1,3 @@
+eyr:2029
+byr:1942 cid:232 iyr:2016 hgt:193cm
+hcl:#733820 pid:175cm ecl:oth
