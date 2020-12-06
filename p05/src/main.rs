@@ -9,6 +9,7 @@ fn main() -> Result<(), io::Error> {
     io::stdin().read_to_string(&mut input)?;
 
     println!("part 1: {:?}", part1(&input));
+    println!("part 2: {:?}", part2(&input));
 
     Ok(())
 }
@@ -49,4 +50,20 @@ fn part1(input: &str) -> Option<u32> {
         .filter_map(|x| x.parse::<Seat>().ok())
         .map(|x| x.id())
         .max()
+}
+
+fn part2(input: &str) -> Option<u32> {
+    let mut ids = input
+        .lines()
+        .filter_map(|x| x.parse::<Seat>().ok())
+        .map(|x| x.id())
+        .collect::<Vec<u32>>();
+    ids.sort_unstable();
+
+    let (min, max) = (ids.first()?, ids.last()?);
+
+    let actual_sum: u32 = ids.iter().sum();
+    let target_sum: u32 = ((max - min + 1) * (min + max)) / 2;
+
+    Some(target_sum - actual_sum)
 }
